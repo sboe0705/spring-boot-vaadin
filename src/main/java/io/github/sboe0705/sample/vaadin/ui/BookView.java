@@ -29,8 +29,11 @@ public class BookView extends VerticalLayout implements BeforeEnterObserver {
 
     public BookView(LibraryService libraryService) {
         this.libraryService = libraryService;
-        add(new Button(new Icon(ARROW_LEFT), e -> UI.getCurrent().getPage().getHistory().back()));
+        Button backButton = new Button(new Icon(ARROW_LEFT), e -> UI.getCurrent().getPage().getHistory().back());
+        backButton.setId("books-back-button");
+        add(backButton);
         heading = new H1("Books");
+        heading.setId("books-heading");
         add(heading);
         grid = new Grid<>(Book.class);
         grid.removeAllColumns();

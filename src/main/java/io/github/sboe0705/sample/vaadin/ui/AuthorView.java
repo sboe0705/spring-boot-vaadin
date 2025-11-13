@@ -25,7 +25,9 @@ public class AuthorView extends VerticalLayout {
 
     public AuthorView(LibraryService libraryService) {
         this.libraryService = libraryService;
-        add(new HorizontalLayout(new H1("Authors"), new Button(new Icon(VaadinIcon.REFRESH), e -> listAuthors())));
+        H1 heading = new H1("Authors");
+        heading.setId("authors-heading");
+        add(new HorizontalLayout(heading, new Button(new Icon(VaadinIcon.REFRESH), e1 -> listAuthors())));
         grid = new Grid<>(Author.class);
         grid.removeAllColumns();
         grid.addColumns("firstName", "lastName", "birthday");
