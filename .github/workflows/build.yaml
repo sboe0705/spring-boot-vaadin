@@ -18,7 +18,7 @@ jobs:
           java-version: 21
 
       - name: build
-        run: mvn -B clean package
+        run: mvn -B clean verify
 
       - name: upload-artifact
         uses: actions/upload-artifact@v4
