@@ -11,6 +11,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
+      - name: cache-maven-repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: maven-repository
+
       - name: setup-java
         uses: actions/setup-java@v4
         with:
