@@ -24,7 +24,13 @@ jobs:
         uses: browser-actions/setup-geckodriver@latest
 
       - name: build
-        run: mvn -B clean verify
+        env:
+          FIREFOX_PATH: ${{ steps.setup-firefox.outputs.firefox-path }}
+        run: |
+          echo "Using Mozilla Firefox from $FIREFOX_PATH"
+          mvn -B clean verify
+
+
 
       - name: upload-artifact
         uses: actions/upload-artifact@v4
