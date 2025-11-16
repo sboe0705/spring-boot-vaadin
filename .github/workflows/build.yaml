@@ -27,7 +27,9 @@ jobs:
         env:
           FIREFOX_PATH: ${{ steps.setup-firefox.outputs.firefox-path }}
         run: |
-          echo "Using Mozilla Firefox from $FIREFOX_PATH"
+          echo Installed firefox versions: ${{ steps.setup-firefox.outputs.firefox-version }}
+          ${{ steps.setup-firefox.outputs.firefox-path }} --version
+          echo "Using firefox from $FIREFOX_PATH"
           mvn -B clean verify
 
 
