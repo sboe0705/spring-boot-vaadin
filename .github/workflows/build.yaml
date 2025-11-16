@@ -17,6 +17,12 @@ jobs:
           distribution: temurin
           java-version: 21
 
+      - name: setup-firefox
+        uses: browser-actions/setup-firefox@v1
+
+      - name: setup-geckodriver
+        uses: browser-actions/setup-geckodriver@v1
+
       - name: build
         run: mvn -B clean verify
 
