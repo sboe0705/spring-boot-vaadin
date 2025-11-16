@@ -41,8 +41,9 @@ public class VaadinSeleniumIT {
         FirefoxOptions options = new FirefoxOptions();
         String firefoxPath = System.getenv("FIREFOX_PATH");
         if (firefoxPath != null) {
-            log.info("Using firefox from {}", firefoxPath);
+            log.info("Using firefox from {} in headless mode", firefoxPath);
             options.setBinary(firefoxPath);
+            options.addArguments("--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
         }
         driver = new FirefoxDriver(options);
     }
