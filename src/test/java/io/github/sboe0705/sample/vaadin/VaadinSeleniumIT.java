@@ -12,13 +12,14 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,28 +29,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class VaadinSeleniumIT {
 
+    private static final Logger log = LoggerFactory.getLogger(VaadinSeleniumIT.class);
+
     @LocalServerPort
     private int port;
 
     private WebDriver driver;
 
-    /*
-        Install firefox and geckodriver with the following command:
-
-        yum install firefox
-        cd /tmp
-        curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest \
-          | grep "browser_download_url.*linux64.tar.gz" \
-          | cut -d '"' -f 4 \
-          | wget -i -
-        tar -xzf geckodriver-v*-linux64.tar.gz
-        sudo mv geckodriver /usr/local/bin/
-     */
     @BeforeAll
     void setup() {
         FirefoxOptions options = new FirefoxOptions();
-        Optional.ofNullable(System.getenv("FIREFOX_PATH"))
-                .ifPresent(options::setBinary);
+        String firefoxPath = System.getenv("FIREFOX_PATH");
+        if (firefoxPath != null) {
+            log.info("Using firefox from {}", firefoxPath);
+            options.setBinary(firefoxPath);
+        }
         driver = new FirefoxDriver(options);
     }
 
@@ -59,7 +53,7 @@ public class VaadinSeleniumIT {
     }
 
     @Test
-    void testNavigationToBooksView() throws InterruptedException {
+    void testNavigationToBooksView() {
         driver.get("http://localhost:" + port + "/");
 
         WebElement heading = waitUntilVisibilityOfElementById("authors-heading");

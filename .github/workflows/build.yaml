@@ -18,6 +18,7 @@ jobs:
           java-version: 21
 
       - name: setup-firefox
+        id: setup-firefox
         uses: browser-actions/setup-firefox@v1.7.0
 
       - name: setup-geckodriver
@@ -26,13 +27,7 @@ jobs:
       - name: build
         env:
           FIREFOX_PATH: ${{ steps.setup-firefox.outputs.firefox-path }}
-        run: |
-          echo Installed firefox versions: ${{ steps.setup-firefox.outputs.firefox-version }}
-          ${{ steps.setup-firefox.outputs.firefox-path }} --version
-          echo "Using firefox from $FIREFOX_PATH"
-          mvn -B clean verify
-
-
+        run: mvn -B clean verify
 
       - name: upload-artifact
         uses: actions/upload-artifact@v4
