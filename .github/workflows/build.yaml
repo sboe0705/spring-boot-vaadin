@@ -18,10 +18,10 @@ jobs:
           java-version: 21
 
       - name: setup-firefox
-        uses: browser-actions/setup-firefox@v1
+        uses: browser-actions/setup-firefox@v1.7.0
 
       - name: setup-geckodriver
-        uses: browser-actions/setup-geckodriver@v1
+        uses: browser-actions/setup-geckodriver@latest
 
       - name: build
         run: mvn -B clean verify
